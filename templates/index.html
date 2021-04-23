@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>Quiz plastyczny</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/toolkit-inverse.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" type="text/css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="ta">Quiz plastyczny</h1>
+        </div>
+        <hr/>
+    </div>
+    <div class="container" id="instructions">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="ta">Przed rozpoczęciem:</h1>
+                <p class="ta">Quiz będzie składał sie z 20 pytań. Podzielony zostanie na 2 sekcje. W pierwszej sekcji będzie trzeba odpowiedzieć na pytania zamknięte (z 4 możliwościami), natomiast w drugiej sekcji będzie trzeba odpowiedzieć na pytania typu Prawda/Fałsz.</p>
+                <h5 class="ta">Powodzenia!</h5>
+            </div>
+            <div class="col-md-12 ta">
+                <a onclick="loadSection()" class="ce apn ame text-xs-center ta">Rozpocznij Quiz</a>
+            </div>
+        </div>
+    </div>
+    <div class="container ta" id="questions" style="display: none">
+        <div class="row">
+            <div class="col-md-12" id="questions_container">
+            </div>
+        </div>
+        <div class="row">
+            <button id="next_btn" onclick="loadSection()" type="button" class="btn btn-lg btn-pill btn-info">Dalej</button>
+            <button id="finish_btn" onclick="finish()" type="button" class="btn btn-lg btn-pill btn-success">Prześlij</button>
+        </div>
+    </div>
+    <div id="qns_sample" class="qns_rows" style="display: none">
+        <p id="qns_title" style="font-size: 24px;">Qns</p>
+        <p id="ans" style="display: none">Qns</p>
+        <ul id="choice_list" class="choice_list ta" style="list-style: none; padding: 0; text-size: 16px; scale:125%;">
+            <li>1</li>
+            <li>2</li>
+        </ul>
+    </div>
+    <div class="container ta" id="results">
+        <div class="row ta">
+            <div class="col-md-12 ta">
+                <h3 id="result_text"></h3>
+                <div class="col-md- ta" style="max-width: 300px;text-align: center;margin-left: 40%">
+                    <canvas id="myChart" width="300" height="300"></canvas>
+                </div>
+                <table class="cl" id="results_table" style="text-align: left">
+                    <thead>
+                        <t>
+                            <th class="header">Sekcja</th>
+                            <th class="header">Wynik</th>
+                            </tr>
+                            <tbody>
+                            </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+console.log("A czego tu szukasz? XD Powodzenia w napisaniu cheatów ;)");
+</script>
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/prem.js') }}"></script>
+
+</html>
