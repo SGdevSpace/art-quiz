@@ -96,7 +96,7 @@ function showOptions(data){
 		qns_div.find("#choice_list").empty();
 		console.log(qns[2]);
 		$.each(qns[2],function(index,val){
-			qns_div.find("#choice_list").append("<li ><input checked type='radio' value='"+val+"' name='qns_"+qns[0]+"''>"+val+"</radio></li>");	
+			qns_div.find("#choice_list").append("<li ><input type='radio' value='"+val+"' name='qns_"+qns[0]+"''>"+val+"</radio></li>");	
 		});
 
 		
