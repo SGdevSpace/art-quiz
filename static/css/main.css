@@ -265,3 +265,13 @@ input[type=radio].with-font:focus ~ label
 #choice_list {
   padding: 0 !important;
 }
+
+.input-data{
+  text-align: center;
+  
+}
+
+#input-imie, #input-nazwisko {
+  color: black !important;
+  margin-bottom: 8px;
+}

@@ -1,7 +1,9 @@
 from flask import Flask,make_response,render_template, request, jsonify, json,jsonify
 from flask import make_response, request, current_app, redirect, url_for, send_from_directory
+from dotenv import load_dotenv
 import os,time,datetime
 import  random
+import mysql.connector
 
 app = Flask(__name__)
 numberOfQuestions = 5
@@ -23,6 +25,15 @@ qns = {
 
 }
 
+mydatabase = mysql.connector.connect(
+  host="mysql54.mydevil.net",
+  user="m1086_admin",
+  password="q29ivxIJFyNw95uONBfK",
+  database="m1086_quiz"
+)
+
+mycursor = mydatabase.cursor()
+
 @app.route('/getQuestions/',methods=['POST'])
 def getQuestions():
     sectionId = request.form['sectionId']
@@ -42,6 +53,28 @@ def getQuestions():
 @app.route('/index')
 def index():
     return render_template('index.html')
+    
+@app.route('/ranking')
+def ranking():
+    return render_template('ranking.html')
+
+@app.route("/result", methods=["GET", "POST"])
+def my_function():
+    if request.method == "POST":
+        data = {}
+        data['name'] = request.json["name"]
+        data['surname'] = request.json['surname']
+        data['result'] = request.json['result']
+
+        sql = "INSERT INTO results (name, surname, points) VALUES (%s, %s, %s)"
+        val = (request.json["name"], request.json['surname'], request.json['result'])
+        mycursor.execute(sql, val)
+        mydatabase.commit()
+        print(mycursor.rowcount, "record inserted.")
+
+        return jsonify(data)
+    else:
+        return render_template('res.html')
 
 if __name__ == '__main__':
-      app.run()
+      app.run(debug=True)

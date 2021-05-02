@@ -2,8 +2,10 @@ var nextSectionId = "Pytania zamknięte",currentSectionId = "Pytania zamknięte"
 var numberOfQns = 0.0,correct=0.0;
 var section_ans =[];
 $("#results").hide();
+var resCorrect;
 function finish(){
 	checkAnswers();
+	console.log(correct);
 	 $("#questions").hide();
 	 $("#results").show();
 	 	$("#result_text").text('Wyniki quizu');
@@ -14,6 +16,9 @@ function finish(){
 		   });
 
 	$(document).trigger("redraw.bs.charts");
+
+
+	
 
 var ctx = document.getElementById("myChart").getContext("2d");
 
@@ -53,6 +58,7 @@ function checkAnswers() {
 		if(correct_ans==selected_ans){
 			correct = correct+1;
 			sectionCorrect=sectionCorrect+1;
+			resCorrect = resCorrect + 1;
 		}
 		sectionTotal=sectionTotal+1;
 		numberOfQns=numberOfQns+1;
@@ -77,7 +83,7 @@ function loadSection() {
                 
             },
             error: function(data) {
-                alert("Nie pobramo pytań z serwera | Kod błędu: ERR01");
+                alert("Nie pobrano pytań z serwera | Kod błędu: ERR01");
             }
         });
 
@@ -114,17 +120,31 @@ function showOptions(data){
 		}
 }
 
-/*
+var imie, nazwisko;
+function getStudentData () {
+	imie = document.getElementById("input-imie").value;
+	nazwisko =  document.getElementById("input-nazwisko").value;
+}
 
-$.ajax({
-        url: "/tweet_download/",
-        type: "POST",
-        data: {"user_handles":$("#user_handles").val()},
-        success: function(data) {
-        	$("#tweet_download_msg").html(data);
-        },
-        error:function(data) {
-        	showMessage("Download failed. Possible reasons 1.Network Failure 2.API limit reached","error");
-        }
-    });
-*/
+function insertStudentData() {
+	var submitDate = new Date;
+	document.getElementById("result_text").innerText = "Wyniki quizu dla ucznia " + imie + " " + nazwisko;
+	console.log(imie + nazwisko + "ez");
+	document.getElementById("submit_date").innerText = "Data przesłania: " + submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate() + " "+ submitDate.getHours() + ":" + submitDate.getMinutes() + ":" + submitDate.getSeconds();
+
+	var results = {
+		'name': imie,
+		'surname': nazwisko,
+		'result': correct
+		}
+	console.log(results)
+	$.ajax({
+		url: "/result",
+		type: 'POST',
+		contentType: "application/json",
+		data: JSON.stringify(results),   // converts js value to JSON string
+		})
+		.done(function(result){     // on success get the return object from server
+			console.log(result)     // do whatever with it. In this case see it in console
+		})
+}

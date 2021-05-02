@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/toolkit-inverse.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}" type="text/css" />
+
 </head>
 
 <body>
@@ -24,8 +25,12 @@
                 <p class="ta">Quiz będzie składał sie z 20 pytań. Podzielony zostanie na 2 sekcje. W pierwszej sekcji będzie trzeba odpowiedzieć na pytania zamknięte (z 4 możliwościami), natomiast w drugiej sekcji będzie trzeba odpowiedzieć na pytania typu Prawda/Fałsz.</p>
                 <h5 class="ta">Powodzenia!</h5>
             </div>
+            <div class="col-md-12 input-data">
+                <input type="text" placeholder="Imie" id="input-imie">
+                <input type="text" placeholder="Nazwisko" id="input-nazwisko">
+            </div>
             <div class="col-md-12 ta">
-                <a onclick="loadSection()" class="ce apn ame text-xs-center ta">Rozpocznij Quiz</a>
+                <a onclick="loadSection(), getStudentData()" class="ce apn ame text-xs-center ta">Rozpocznij Quiz</a>
             </div>
         </div>
     </div>
@@ -36,7 +41,7 @@
         </div>
         <div class="row">
             <button id="next_btn" onclick="loadSection()" type="button" class="btn btn-lg btn-pill btn-info">Dalej</button>
-            <button id="finish_btn" onclick="finish()" type="button" class="btn btn-lg btn-pill btn-success">Prześlij</button>
+            <button id="finish_btn" onclick="finish(), insertStudentData()" type="button" class="btn btn-lg btn-pill btn-success">Prześlij</button>
         </div>
     </div>
     <div id="qns_sample" class="qns_rows" style="display: none">
@@ -51,6 +56,7 @@
         <div class="row ta">
             <div class="col-md-12 ta">
                 <h3 id="result_text"></h3>
+                <p id="submit_date"></p>
                 <div class="col-md- ta" style="max-width: 300px;text-align: center;margin-left: 40%">
                     <canvas id="myChart" width="300" height="300"></canvas>
                 </div>
@@ -71,11 +77,13 @@
 <script>
 console.log("A czego tu szukasz? XD Powodzenia w napisaniu cheatów ;)");
 </script>
+
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/toolkit.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/prem.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/handler.js') }}"></script>
+
 
 </html>
