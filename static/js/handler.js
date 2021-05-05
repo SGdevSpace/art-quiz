@@ -5,7 +5,6 @@ $("#results").hide();
 var resCorrect;
 function finish(){
 	checkAnswers();
-	console.log(correct);
 	 $("#questions").hide();
 	 $("#results").show();
 	 	$("#result_text").text('Wyniki quizu');
@@ -100,7 +99,6 @@ function showOptions(data){
 		qns_div.find("#qns_title").text(qns[1]);
 		qns_div.find("#ans").text(qns[3]);
 		qns_div.find("#choice_list").empty();
-		console.log(qns[2]);
 		$.each(qns[2],function(index,val){
 			qns_div.find("#choice_list").append("<li ><input type='radio' value='"+val+"' name='qns_"+qns[0]+"''>"+val+"</radio></li>");	
 		});
@@ -129,7 +127,6 @@ function getStudentData () {
 function insertStudentData() {
 	var submitDate = new Date;
 	document.getElementById("result_text").innerText = "Wyniki quizu dla ucznia " + imie + " " + nazwisko;
-	console.log(imie + nazwisko + "ez");
 	document.getElementById("submit_date").innerText = "Data przesłania: " + submitDate.getFullYear()+'-'+(submitDate.getMonth()+1)+'-'+submitDate.getDate() + " "+ submitDate.getHours() + ":" + submitDate.getMinutes() + ":" + submitDate.getSeconds();
 
 	var results = {
@@ -137,14 +134,13 @@ function insertStudentData() {
 		'surname': nazwisko,
 		'result': correct
 		}
-	console.log(results)
 	$.ajax({
 		url: "/result",
 		type: 'POST',
 		contentType: "application/json",
-		data: JSON.stringify(results),   // converts js value to JSON string
+		data: JSON.stringify(results),
 		})
-		.done(function(result){     // on success get the return object from server
-			console.log(result)     // do whatever with it. In this case see it in console
+		.done(function(result){
+			console.log(result)
 		})
 }

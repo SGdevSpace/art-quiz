@@ -1,6 +1,5 @@
 from flask import Flask,make_response,render_template, request, jsonify, json,jsonify
 from flask import make_response, request, current_app, redirect, url_for, send_from_directory
-from dotenv import load_dotenv
 import os,time,datetime
 import  random
 import mysql.connector
@@ -25,14 +24,14 @@ qns = {
 
 }
 
-mydatabase = mysql.connector.connect(
+resultdatabase = mysql.connector.connect(
   host="mysql54.mydevil.net",
   user="m1086_admin",
   password="q29ivxIJFyNw95uONBfK",
   database="m1086_quiz"
 )
 
-mycursor = mydatabase.cursor()
+dbcursor = resultdatabase.cursor()
 
 @app.route('/getQuestions/',methods=['POST'])
 def getQuestions():
@@ -56,25 +55,19 @@ def index():
     
 @app.route('/ranking')
 def ranking():
-    return render_template('ranking.html')
+    dbcursor.execute("SELECT * FROM results ORDER BY `points` DESC")
+    data = dbcursor.fetchall()
+    return render_template('ranking.html', data=data)
 
-@app.route("/result", methods=["GET", "POST"])
-def my_function():
-    if request.method == "POST":
-        data = {}
-        data['name'] = request.json["name"]
-        data['surname'] = request.json['surname']
-        data['result'] = request.json['result']
+@app.route("/result", methods=["POST"])
+def result():
+    sql = "INSERT INTO results (name, surname, points) VALUES (%s, %s, %s)"
+    val = (request.json["name"], request.json['surname'], request.json['result'])
+    dbcursor.execute(sql, val)
+    resultdatabase.commit()
+    print("done")
+    return "done"
 
-        sql = "INSERT INTO results (name, surname, points) VALUES (%s, %s, %s)"
-        val = (request.json["name"], request.json['surname'], request.json['result'])
-        mycursor.execute(sql, val)
-        mydatabase.commit()
-        print(mycursor.rowcount, "record inserted.")
-
-        return jsonify(data)
-    else:
-        return render_template('res.html')
 
 if __name__ == '__main__':
       app.run(debug=True)

@@ -1,2 +1,34 @@
-<p>Nr 1 - Szymon Seklerz</p>
-<p>Nr ostatni - maria stupak</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ranking.css') }}" type="text/css" />
+    <title>Ranking</title>
+</head>
+<body>
+    <h1>Ranking</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Imie</th>
+                <th>Nazwisko</th>
+                <th>Ilość punktów</th>
+                <th>Data przesłania</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{item[1]}}</td>
+                    <td>{{item[2]}}</td>
+                    <td>{{item[3]}}</td>
+                    <td>{{item[4]}}</td>
+
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
