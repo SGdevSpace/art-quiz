@@ -66,7 +66,6 @@ qns = {
                 ["s2p13","Pilaster, to łaski filar nieprzylegający do ściany budynku.",["Prawda","Fałsz"],"Fałsz"]
                 ["s2p14","Portal, to ozdobne obramienie drzwi, składające się z otworu drzwiowego, tympanonu, przylegających kolumienek i dekoracji rzeźbiarskich.",["Prawda","Fałsz"],"Prawda"]
                 ["s2p15","Werniks, to nieprzezroczysta płynna substancja żywiczna, służąca do powlekania powierzchni malowidła po jego wyschnięciu.",["Prawda","Fałsz"],"Fałsz"]
-                ["s2p16","pyt",["Prawda","Fałsz"],"P/F"]
                 ]
 
 }
